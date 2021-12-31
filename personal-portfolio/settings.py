@@ -58,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(os.getcwd(), "personal-portfolio", "templates")
+            os.path.join(os.getcwd(), "personal-portfolio", "templates"),
+            os.path.join(os.getcwd(), "auth", "templates"),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
