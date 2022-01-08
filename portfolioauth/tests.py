@@ -82,5 +82,4 @@ class UserModelTest(TestCase):
                 email="john@doe.com",
                 phone="+385 99 585 9138")
         except:
-            print("Rannnnn")
             self.assertRaises(RuntimeError)
