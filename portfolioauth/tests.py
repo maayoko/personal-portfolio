@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.forms.models import model_to_dict
 
 from .models import User
 
@@ -32,6 +33,13 @@ class UserModelTest(TestCase):
             phone="+385 99 585 9138")
 
     def test_user_details(self):
-        user = User.objects.get(id=1)
-        full_name = user._meta.get_field("full_name")
-        self.assertEqual(2, 2)
+        actual_user = User.objects.get(id=1)
+        actual_user = model_to_dict(actual_user)
+        expected_user = {
+            "full_name": "John Doe",
+            "username": "jd",
+            "password": "pass",
+            "email": "john@doe.com",
+            "phone": "+385 99 585 9138"
+        }
+        self.assertDictContainsSubset(expected_user, actual_user)
