@@ -8,4 +8,4 @@ class RegisterForm(forms.Form):
     password_1 = forms.CharField(
         label="Confirm Password", min_length=8, required=True)
     email = forms.EmailField(label="Email", required=True)
-    phone = forms.IntegerField(label="Phone number", required=False)
+    phone = forms.CharField(label="Phone number", required=False)
