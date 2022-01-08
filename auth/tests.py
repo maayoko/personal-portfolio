@@ -1,5 +1,7 @@
 from django.test import TestCase
 
+from .models import User
+
 # Create your tests here.
 
 
@@ -17,3 +19,19 @@ class RegisterViewTest(TestCase):
         response = self.client.get("/auth/register")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("register/index.html")
+
+
+class UserModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        User.objects.create(
+            username="jd",
+            full_name="John Doe",
+            password="pass",
+            email="john@doe.com",
+            phone="+385 99 585 9138")
+
+    def test_user_details(self):
+        user = User.objects.get(id=1)
+        full_name = user._meta.get_field("full_name")
+        self.assertEqual(2, 2)
