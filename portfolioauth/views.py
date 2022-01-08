@@ -44,6 +44,12 @@ def register(request: HttpRequest):
         form = RegisterForm(request.POST)
 
         if form.is_valid():
+            User.objects.create(
+                username=request.POST["username"],
+                full_name=request.POST["full_name"],
+                password=request.POST["password"],
+                email=request.POST["email"],
+                phone=request.POST["phone"])
             return HttpResponseRedirect("/dashboard")
 
         return render(request, "register/index.html", {"errors": form.errors})
