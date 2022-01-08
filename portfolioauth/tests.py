@@ -21,6 +21,18 @@ class RegisterViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("register/index.html")
 
+    def test_user_registered(self):
+        user = {
+            "full_name": "John Doe",
+            "username": "jd",
+            "password": "fskfkewfkeew",
+            "password_1": "fskfkewfkeew",
+            "email": "john@doe.com",
+            "phone": "+385 99 585 9138"
+        }
+        response = self.client.post("/auth/register", user)
+        self.assertEqual(response.status_code, 302)
+
 
 class UserModelTest(TestCase):
     @classmethod
