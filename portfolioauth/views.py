@@ -18,14 +18,19 @@ def login(request: HttpRequest):
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            user: User = User.objects.get(username=request.POST["username"])
-            password_matches = check_passwords(
-                user.password, request.POST["password"])
+            try:
+                user: User = User.objects.get(
+                    username=request.POST["username"])
+                password_matches = check_passwords(
+                    user.password, request.POST["password"])
 
-            if password_matches:
-                return HttpResponseRedirect("/dashboard")
+                if password_matches:
+                    return HttpResponseRedirect("/dashboard")
+            except User.DoesNotExist:
+                errors = "Wrong email or password"
 
-        return render(request, "login/index.html", {"errors": form.errors})
+        errors = errors if isinstance(errors, str) else form.errors
+        return render(request, "login/index.html", {"errors": errors})
 
     elif request.method == "GET":
         return render(request, "login/index.html")
