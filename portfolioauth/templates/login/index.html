@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="static/img/favicon.png" type="image/png">
+    <title>Ivan Iviček</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/vendors/linericon/style.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/vendors/lightbox/simpleLightbox.css">
+    <link rel="stylesheet" href="/static/vendors/nice-select/css/nice-select.css">
+    <link rel="stylesheet" href="/static/vendors/animate-css/animate.css">
+    <link rel="stylesheet" href="/static/vendors/popup/magnific-popup.css">
+    <link rel="stylesheet" href="/static/vendors/flaticon/flaticon.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Sign In</h3>
+                    <div class="d-flex justify-content-end social_icon">
+                        <span><i class="fa fa-facebook-square"></i></span>
+                        <span><i class="fa fa-google-plus-square"></i></span>
+                        <span><i class="fa fa-twitter-square"></i></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="/login" method="post">
+                        {% csrf_token %}
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input name="username" type="text" class="form-control" placeholder="username">
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input name="password" type="password" class="form-control" placeholder="password">
+                        </div>
+                        <div class="row align-items-center remember">
+                            <input type="checkbox">Remember Me
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="btn float-right login_btn">
+                        </div>
+                    </form>
+                    {{ errors }}
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links">
+                        Don't have an account?<a href="/auth/register">Sign Up</a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="#">Forgot your password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/popper.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/stellar.js"></script>
+    <script src="/static/vendors/lightbox/simpleLightbox.min.js"></script>
+    <script src="/static/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="/static/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+    <script src="/static/vendors/isotope/isotope.pkgd.min.js"></script>
+    <script src="/static/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="/static/vendors/popup/jquery.magnific-popup.min.js"></script>
+    <script src="/static/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/static/vendors/counter-up/jquery.waypoints.min.js"></script>
+    <script src="/static/vendors/counter-up/jquery.counterup.min.js"></script>
+    <script src="/static/js/mail-script.js"></script>
+    <script src="/static/js/theme.js"></script>
+</body>
+
+</html>
