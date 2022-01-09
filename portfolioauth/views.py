@@ -16,6 +16,7 @@ def check_passwords(password1, password2):
 def login(request: HttpRequest):
     if request.method == "POST":
         form = LoginForm(request.POST)
+        errors = None
 
         if form.is_valid():
             try:
