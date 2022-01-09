@@ -31,6 +31,19 @@ class LoginViewTest(TestCase):
         response = self.client.post("/auth/login", user_details)
         self.assertEqual(response.status_code, 302)
 
+    def test_user_do_not_exist(self):
+        user_dto = {
+            "username": "foo",
+            "password": "bar12345678"
+        }
+        response = self.client.post("/auth/login", user_dto)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed("login/index.html")
+
+        string_in_content_idx = str(response.content).find(
+            "Wrong email or password")
+        self.assertGreater(string_in_content_idx, -1)
+
 
 class RegisterViewTest(TestCase):
     def test_url_exists(self):
@@ -62,7 +75,8 @@ class UserModelTest(TestCase):
             phone="+385 99 585 9138")
 
     def test_user_details(self):
-        actual_user = User.objects.get(id=2)
+        username = "jd"
+        actual_user = User.objects.get(username=username)
         actual_user = model_to_dict(actual_user)
         expected_user = {
             "full_name": "John Doe",
