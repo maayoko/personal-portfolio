@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http.request import HttpRequest
 
 from .login_form import LoginForm
@@ -26,7 +26,7 @@ def login(request: HttpRequest):
                     user.password, request.POST["password"])
 
                 if password_matches:
-                    return HttpResponseRedirect("/dashboard")
+                    return redirect("/dashboard")
             except User.DoesNotExist:
                 errors = "Wrong email or password"
 
