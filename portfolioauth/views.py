@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http.request import HttpRequest
 
 from .login_form import LoginForm
@@ -16,16 +16,22 @@ def check_passwords(password1, password2):
 def login(request: HttpRequest):
     if request.method == "POST":
         form = LoginForm(request.POST)
+        errors = None
 
         if form.is_valid():
-            user: User = User.objects.get(username=request.POST["username"])
-            password_matches = check_passwords(
-                user.password, request.POST["password"])
+            try:
+                user: User = User.objects.get(
+                    username=request.POST["username"])
+                password_matches = check_passwords(
+                    user.password, request.POST["password"])
 
-            if password_matches:
-                return HttpResponseRedirect("/dashboard")
+                if password_matches:
+                    return redirect("/dashboard")
+            except User.DoesNotExist:
+                errors = "Wrong email or password"
 
-        return render(request, "login/index.html", {"errors": form.errors})
+        errors = errors if isinstance(errors, str) else form.errors
+        return render(request, "login/index.html", {"errors": errors})
 
     elif request.method == "GET":
         return render(request, "login/index.html")
@@ -39,6 +45,12 @@ def register(request: HttpRequest):
         form = RegisterForm(request.POST)
 
         if form.is_valid():
+            User.objects.create(
+                username=request.POST["username"],
+                full_name=request.POST["full_name"],
+                password=request.POST["password"],
+                email=request.POST["email"],
+                phone=request.POST["phone"])
             return HttpResponseRedirect("/dashboard")
 
         return render(request, "register/index.html", {"errors": form.errors})

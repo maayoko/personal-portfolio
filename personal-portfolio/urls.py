@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('', views.home_page),
     path("auth/", include("portfolioauth.urls")),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('dashboard/', include("dashboard.urls"))
 ]
