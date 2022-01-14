@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog:Ivan Iviček</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+
+<body>
+    <div class="blog">
+        <aside class="blog__sidebar">
+            <h4>Menu</h4>
+            <ul>
+                <li><a href="{% url 'blog:index' %}">Home</a></li>
+                {% comment %} <li><a href="{% url 'blog:authors' %}">Authors</a></li> {% endcomment %}
+            </ul>
+        </aside>
+        <main class="blog__content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+
+</html>

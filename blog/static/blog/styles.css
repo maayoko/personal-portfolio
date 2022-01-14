@@ -1,0 +1,13 @@
+.blog {
+    display: flex;
+}
+
+.blog__sidebar {
+    flex-grow: 1;
+    flex-basis: 20%;
+}
+
+.blog__content {
+    flex-grow: 2;
+    flex-basis: 80%;
+}

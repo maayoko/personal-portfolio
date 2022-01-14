@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %} {% block content %}
+<h3><u>Latest blogs</u></h3>
+<div>
+    <form method="post" action="/blog">
+        {% csrf_token %}
+        <input type="search" name="blog_search" placeholder="Search blogs, topics and more">
+    </form>
+</div>
+{% endblock %}
