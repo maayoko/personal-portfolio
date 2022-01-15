@@ -6,11 +6,11 @@ class Blogger(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
+    bio = models.TextField(default="Bio about blogger.")
     birth_date = models.DateField()
 
     def get_absolute_url(self):
-        # return reverse("blog:author-detail", args=(self.id, ))
-        ...
+        return reverse("blog:blogger", args=(self.id, ))
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
