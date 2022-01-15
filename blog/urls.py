@@ -7,5 +7,5 @@ app_name = "blog"
 urlpatterns = [
     path("", HomeView.as_view(), name="index"),
     path("blogs/", BlogsView.as_view(), name="blogs"),
-    path("<int:pk>", BlogDetailView.as_view(), name="blog-detail"),
+    path("<int:pk>/", BlogDetailView.as_view(), name="blog-detail"),
 ]
