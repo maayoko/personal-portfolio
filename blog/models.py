@@ -24,14 +24,22 @@ class Post(models.Model):
         max_length=400, help_text="Enter summary of the post")
     author = models.ForeignKey(
         Blogger, on_delete=models.SET_NULL, null=True)
-    published = models.SmallIntegerField()
+
+    publish_choices = (
+        (0, "Not published"),
+        (1, "Published")
+    )
+
+    published = models.SmallIntegerField(choices=publish_choices)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-published_at"]
+
     def get_absolute_url(self):
-        # return reverse("blog:blog-detail", args=(self.id,))
-        ...
+        return reverse("blog:blog-detail", args=(self.id,))
 
     def __str__(self) -> str:
         return self.title
@@ -64,3 +72,6 @@ class Category(models.Model):
     description = models.TextField()
     posts = models.ManyToManyField(Post, related_name="categories")
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.title
