@@ -10,6 +10,7 @@ class HomeView(generic.ListView):
 
 
 class BlogsView(generic.ListView):
+    paginate_by = 5
     template_name = "blog/blogs.html"
     context_object_name = "posts"
     model = Post
