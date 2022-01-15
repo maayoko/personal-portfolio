@@ -1,9 +1,21 @@
 from django.shortcuts import render
 from django.views import generic
 
-# Create your views here.
+from .models import Post
 
 
 class HomeView(generic.ListView):
     template_name = "blog/index.html"
     queryset = []
+
+
+class BlogsView(generic.ListView):
+    template_name = "blog/blogs.html"
+    context_object_name = "posts"
+    model = Post
+
+
+class BlogDetailView(generic.DetailView):
+    template_name = "blog/blog-detail.html"
+    context_object_name = "post"
+    model = Post

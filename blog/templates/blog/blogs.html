@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %} 
+{% extends 'blog/base.html' %}
 
 {% block content %}
     <h3><u>Latest blogs</u></h3>
@@ -8,4 +8,11 @@
             <input type="search" name="blog_search" placeholder="Search blogs, topics and more">
         </form>
     </div>
+    {% for post in posts %}
+        <div>
+            <h5>{{ post.title }}</h5>
+            <p>{{ post.summary}}</p>
+            <a href="{% url 'blog:blog-detail' post.id %}" target="_blank">Read more...</a>
+        </div>
+    {% endfor %}
 {% endblock %}
