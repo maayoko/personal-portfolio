@@ -27,6 +27,14 @@ class BloggerView(generic.DetailView):
     context_object_name = "blogger"
     model = Blogger
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["blogger_posts"] = Post.objects.filter(
+            author__id=context["blogger"].id).order_by("-published_at")
+
+        print(len(context["blogger_posts"]))
+        return context
+
 
 class BloggersView(generic.ListView):
     template_name = "blog/bloggers.html"

@@ -2,4 +2,12 @@
 
 {% block content %}
     <h3>{{ blogger }}</h3>
+    <p><strong><u>Bio</u></strong></p>
+    <p>{{ blogger.bio }}</p>
+    <h4><u>{{ "Posts"|upper }}</u></h4>
+    <ul>
+        {% for post in blogger_posts %}
+            <li><a href="{% url 'blog:blog-detail' post.id %}">{{ post.title }}</a> ({{post.published_at}})</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
