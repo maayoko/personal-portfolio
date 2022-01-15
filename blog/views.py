@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 
-from .models import Blogger, Post
+from .models import Blogger, Post, Comment
 
 
 class HomeView(generic.ListView):
@@ -20,6 +20,12 @@ class BlogDetailView(generic.DetailView):
     template_name = "blog/blog-detail.html"
     context_object_name = "post"
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_comments"] = Comment.objects.filter(
+            post__id=context["post"].id).order_by("-published_at")
+        return context
 
 
 class BloggerView(generic.DetailView):
