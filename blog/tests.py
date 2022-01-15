@@ -1,9 +1,10 @@
 from datetime import date, datetime
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from .models import Blogger, Post
 
 
+@override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
 class HomeViewTests(TestCase):
     def test_page_can_be_displayed(self):
         response = self.client.get("/blog/")
