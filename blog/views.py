@@ -46,3 +46,17 @@ class BloggersView(generic.ListView):
     template_name = "blog/bloggers.html"
     context_object_name = "bloggers"
     model = Blogger
+
+
+class CommentView(generic.CreateView):
+    template_name = "blog/comment.html"
+    model = Comment
+    fields = ["description"]
+
+    def get_success_url(self) -> str:
+        return self.request.META.get('HTTP_REFERER', self.request.path)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post"] = Post.objects.get(id=self.kwargs.get("pk"))
+        return context
