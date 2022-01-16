@@ -1,5 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
+from django.http.request import HttpRequest
+from django.urls import reverse
+
+from blog.forms import AddCommentForm
 
 from .models import Blogger, Post, Comment
 
@@ -50,13 +54,40 @@ class BloggersView(generic.ListView):
 
 class CommentView(generic.CreateView):
     template_name = "blog/comment.html"
-    model = Comment
-    fields = ["description"]
+    # model = Comment
+    # fields = ["description"]
 
-    def get_success_url(self) -> str:
-        return self.request.META.get('HTTP_REFERER', self.request.path)
+    # def get_success_url(self) -> str:
+    #     return self.request.META.get('HTTP_REFERER', self.request.path)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["post"] = Post.objects.get(id=self.kwargs.get("pk"))
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["post"] = Post.objects.get(id=self.kwargs.get("pk"))
+    #     return context
+
+    def get(self, request: HttpRequest, *args: str, **kwargs):
+        post = get_object_or_404(Post, pk=kwargs.get("pk"))
+        context = {
+            "form": AddCommentForm(),
+            "post": post
+        }
+        return render(request, self.template_name, context=context)
+
+    def post(self, request: HttpRequest, *args: str, **kwargs):
+        form = AddCommentForm(request.POST)
+        post = get_object_or_404(Post, pk=kwargs.get("pk"))
+
+        if form.is_valid():
+            comment = Comment()
+            comment.title = "New comment"
+            comment.description = form.cleaned_data["description"]
+            comment.post = post
+            comment.save()
+
+            return redirect(reverse("blog:blog-detail", args=(post.id, )))
+
+        context = {
+            "form": form,
+            "post": post
+        }
+        return render(request, self.template_name, context=context)
