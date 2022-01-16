@@ -26,7 +26,7 @@ class Post(models.Model):
         Blogger, on_delete=models.SET_NULL, null=True)
 
     publish_choices = (
-        (0, "Not published"),
+        (0, "Draft"),
         (1, "Published")
     )
 
@@ -59,9 +59,21 @@ class Comment(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    published = models.SmallIntegerField()
+    author = models.ForeignKey(
+        Blogger, on_delete=models.CASCADE, default=1)
+
+    publish_choices = (
+        (0, "Draft"),
+        (1, "Published")
+    )
+
+    published = models.SmallIntegerField(
+        choices=publish_choices, default=publish_choices[0][0])
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse("blog:comment", args=(self.id, ))
 
     def __str__(self) -> str:
         return self.title
