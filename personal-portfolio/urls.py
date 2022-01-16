@@ -23,5 +23,6 @@ urlpatterns = [
     path("auth/", include("portfolioauth.urls")),
     path('admin/', admin.site.urls),
     path('dashboard/', include("dashboard.urls")),
-    path("blog/", include("blog.urls"))
+    path("blog/", include("blog.urls")),
+    path("accounts/", include('django.contrib.auth.urls'), name="accounts")
 ]
