@@ -50,7 +50,7 @@ class BlogsViewTests(TestCase):
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
 class BlogDetailViewTests(TestCase):
     def get_url(self, id):
-        return f"/blog/{str(id)}"
+        return f"/blog/{str(id)}/"
 
     def test_display_title(self):
         post = create_post()
