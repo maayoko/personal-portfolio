@@ -10,6 +10,8 @@
     <p>Comments</p>
     <hr />
     {% for comment in post_comments %}
-        <p>{{ comment.post.author }} ({{ comment.published_at }}) - {{ comment.description }}</p>
+        <p>{{ comment.author }} ({{ comment.published_at }}) - {{ comment.description }}</p>
+        <hr />
     {% endfor %}
+    <a href="{% url 'blog:comment' post.id %}">Add new comment</a>
 {% endblock %}
