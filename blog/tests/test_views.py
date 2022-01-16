@@ -2,7 +2,7 @@ from django.test import TestCase, override_settings
 
 from blog.models import Post
 
-from .models import create_post
+from .test_models import create_post
 
 
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')

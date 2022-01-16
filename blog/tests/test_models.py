@@ -1,7 +1,19 @@
 from datetime import date, datetime
 from django.test import TestCase
+from django.contrib.auth.models import User
 
 from ..models import Blogger, Post
+
+
+def create_or_get_user() -> User:
+    try:
+        return User.objects.get(username="admin")
+    except:
+        return User.objects.create(
+            username="admin",
+            password="weak_password",
+            email="admin@example.com"
+        )
 
 
 def create_post() -> Post:
@@ -18,6 +30,7 @@ def create_blogger() -> Blogger:
     return Blogger.objects.create(
         first_name="John",
         last_name="Doe",
+        user=create_or_get_user(),
         email="johndoe@example.com",
         birth_date=date(1988, 7, 17)
     )
