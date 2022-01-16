@@ -1,10 +1,12 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Blogger(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     email = models.EmailField()
     bio = models.TextField(default="Bio about blogger.")
     birth_date = models.DateField()
@@ -13,7 +15,7 @@ class Blogger(models.Model):
         return reverse("blog:blogger", args=(self.id, ))
 
     def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name}"
+        return self.user.username
 
 
 class Post(models.Model):
