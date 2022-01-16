@@ -28,7 +28,7 @@ class BlogDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["post_comments"] = Comment.objects.filter(
-            post__id=context["post"].id).order_by("-published_at")
+            post__id=context["post"].id).order_by("published_at")
         return context
 
 
@@ -66,6 +66,9 @@ class CommentView(generic.CreateView):
     #     return context
 
     def get(self, request: HttpRequest, *args: str, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse("login"))
+
         post = get_object_or_404(Post, pk=kwargs.get("pk"))
         context = {
             "form": AddCommentForm(),
