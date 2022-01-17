@@ -152,3 +152,5 @@ STATICFILES_STORAGE = 'django_forgiving_collectstatic.storages.ForgivingManifest
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/blog/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
